@@ -1,0 +1,20 @@
+---
+permalink: configure/configure-network-access.html
+sidebar: sidebar
+keywords: network access configuration, export policy, mount operation, ESXi hosts
+summary: 'If you have not configured the network access, all the discovered IP addresses from the ESXi host are added to the export policy by default.'
+---
+= Configure network access
+:icons: font
+:imagesdir: ../media/
+
+[.lead]
+If you've not configured the network access, all the discovered IP addresses from the ESXi host are added to the export policy by default. You can configure it to add a few specific IP addresses to the export policy and exclude the rest. However, when you perform a mount operation on the excluded ESXi hosts, the operation fails.
+
+.Steps
+. Log in to the vSphere client.
+. Select *NetApp ONTAP tools* in the shortcuts page under the plug-ins section.
+. In the left pane of ONTAP tools, navigate to *Settings* > *Manage Network Access* > *Edit*. 
++
+To add multiple IP addresses, separate the list with commas, range, Classless Inter-Domain Routing (CIDR), or a combination of all three.
+. Select *Save*.

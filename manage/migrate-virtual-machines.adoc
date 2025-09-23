@@ -1,0 +1,57 @@
+---
+permalink: manage/migrate-virtual-machines.html
+sidebar: sidebar
+keywords:
+summary: 'You should be aware of some of the considerations while migrating exisitng virtual machines in your data center.'
+---
+= Considerations to migrate or clone virtual machines
+:icons: font
+:imagesdir: ../media/
+
+[.lead]
+You should be aware of some of the considerations while migrating existing virtual machines in your data center.
+
+== Migrate protected virtual machines
+
+You can migrate the protected virtual machines to:
+
+* Same vVols datastore in a different ESXi host
+* Different compatible vVols datastore in same ESXi host
+* Different compatible vVols datastore in a different ESXi host
+
+If the virtual machine is migrated to a different FlexVol volume, then the respective metadata file also gets updated with the virtual machine information. If a virtual machine is migrated to a different ESXi host but same storage, then underlying FlexVol volume metadata file will not be modified.
+
+== Clone protected virtual machines
+
+You can clone protected virtual machines to the following:
+
+* Same container of same FlexVol volume using replication group
++
+Same FlexVol volume's metadata file is updated with the cloned virtual machine details.
+
+* Same container of a different FlexVol volume using replication group
++
+The FlexVol volume where the cloned virtual machine is placed, the metadata file gets updated with the cloned virtual machine details.
+
+* Different container or vVols datastore
++
+The FlexVol volume where the cloned virtual machine is placed, the metadata file gets updated virtual machine details.
+
+VMware presently does not support virtual machines cloned to a VM template.
+
+Clone-of-Clone of a protected virtual machine is supported.
+
+Refer to https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-virtual-machine-administration-guide-7-0/deploying-virtual-machinesvm-admin/clone-an-existing-virtual-machine-h5vm-admin.html[Creating a Virtual Machine for Cloning] for more details.
+
+// 10.3 updates
+
+== Virtual Machine Snapshots
+
+Presently only virtual machine Snapshots without memory are supported. If virtual machine has Snapshot with memory, then the virtual machine is not considered for protection.
+
+You also cannot protect unprotected virtual machines that have memory Snapshot. For this release, you are expected to delete memory snapshot before enabling protection for the virtual machine.
+
+For windows VM with ASA r2 storage type, when you take a snapshot of the virtual machine, it will be a read-only snapshot.
+When there is power on call for the VM, the VASA Provider creates a LUN using the read-only snapshot and then it enables it for IOPS. During the power-off request, VASA Provider deletes the LUN that was created and then disables the IOPS.
+
+// Added for 10.3, inputs received from Rajiv
