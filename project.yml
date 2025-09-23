@@ -1,5 +1,6 @@
 settings:
-  name: ONTAP tools for VMware vSphere 104
+  name: ONTAP tools for VMware vSphere 10
+  downlevel: true
   internal:
     pdf_enabled: true
   prod:
@@ -20,7 +21,7 @@ settings:
       url: /ontap-tools-vmware-vsphere-100     
 sidebar: 
   entries:
-    - title: ONTAP tools for VMware vSphere 10.4
+    - title: ONTAP tools for VMware vSphere 10.4 docs
       url: /index.html
     - section: release-notes
     - section: concepts
