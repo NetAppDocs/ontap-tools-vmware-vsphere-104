@@ -1,0 +1,198 @@
+---
+permalink: deploy/prerequisites.html
+sidebar: sidebar
+keywords: ONTAP tools,Storage Replication Adapter
+summary: 'Before deploying the ONTAP tools for VMware vSphere, you should be familiar with the space requirements for the deployment package and some basic host system requirements.'
+---
+= ONTAP tools for VMware vSphere requirements and configuration limits
+:icons: font
+:imagesdir: ../media/
+
+[.lead]
+Before deploying the ONTAP tools for VMware vSphere, you should be familiar with the space requirements for the deployment package and some basic host system requirements.
+
+You can use ONTAP tools for VMware vSphere with VMware vCenter Server Virtual Appliance (vCSA). You should deploy ONTAP tools for VMware vSphere on a supported vSphere client that includes ESXi system.
+
+== System requirements
+
+* *Installation package space requirements per node*
+** 15 GB for thin provisioned installations
+** 348 GB for thick provisioned installations
+
+* *Host system sizing requirements*
+Recommended memory as per the size of deployment is as shown in the table below. To deploy high availability (HA), you will require three times the appliance size specified in the table.
+// updated for GITHUB issue #50
+|===
+
+|*Type of deployment*| *CPUs per node* |*Memory (GB) per node* |*Disk space (GB) thick provisioned per node*
+|Small
+|9
+|18
+|350
+|Medium
+|13
+|26
+|350
+|Large
+
+NOTE: The large deployment is only for HA configuration.
+|17
+|34
+|350
+|===
+[NOTE]
+When backup is enabled, each ONTAP tools cluster needs another 50 GB of space on the datastore where VMs are deployed. Therefore, non-HA requires 400 GB, and HA requires 1100 GB of space in total.
+
+// updated note for OTVDOC-258
+== Minimum storage and application requirements
+
+|===
+|Storage, host, and applications|Version requirements
+
+|ONTAP
+|9.14.1, 9.15.1, 9.16.0, 9.16.1, and 9.16.1P3
+
+FAS, ASA A-Series, ASA C-Series, AFF A-Series, AFF C-Series, and ASA r2.
+
+|ONTAP tools supported ESXi hosts
+|7.0.3 onwards
+
+|ONTAP tools supported vCenter Server
+|7.0U3 onwards
+
+|VASA Provider 
+|3.0
+
+|OVA Application 
+|10.4
+
+|ESXi host to deploy ONTAP tools virtual machine
+|7.0U3 and 8.0U3
+//OTVDOC-282 updates -Jani
+
+|vCenter Server to deploy ONTAP tools virtual machine
+|7.0 and 8.0
+// updated the requirements as per OTVDOC-258
+|===
+[NOTE]
+Beginning with ONTAP tools for VMware vSphere 10.4, the virtual machine hardware is changed from version 10 to 17.
+
+The Interoperability Matrix Tool (IMT) contains the latest information about the supported versions of ONTAP, vCenter Server, ESXi hosts, and plug-in applications.
+
+https://imt.netapp.com/matrix/imt.jsp?components=105475;&solution=1777&isHWU&src=IMT[Interoperability Matrix Tool^]
+
+== Port requirements
+
+The following table outlines the network ports that NetApp uses and their purposes. Ensure these ports are open and accessible to facilitate proper operation and communication within the system. Ensure that the necessary network configurations are in place to allow traffic on these ports for the associated services to function correctly. Depending on your security policies, you might need to configure firewalls or other security appliances to permit this traffic within your network.
+
+|===
+|*Port* |*Protocol* |*Description*
+|8143 |TCP|HTTP/HTTPS connections for ONTAP tools.
+|8043|TCP|HTTP/HTTPS connections for ONTAP tools.
+|9060|TCP|HTTP/HTTPS connections for ONTAP tools.
+|22 |TCP |Ansible uses this SSH port for communication during cluster provisioning. This port is required for functionalities like changing maintenance user password, status messages, and to update values on all the three nodes in case of HA configuration.
+
+|443 |TCP |This is the pass through port for incoming communication for the VASA Provider service. VASA Provider self-signed certificate and custom CA certificate are hosted on this port.
+
+|8443|TCP |This port hosts the API documentation through swagger and the Manager user interface application.
+
+|2379|TCP |This is the default port for client requests such as get, put, delete, or watch for keys in the etcd key value store.
+
+|2380|TCP |This is the default port for server-to-server communication for the etcd cluster used for the raft consensus algorithm that etcd relies on for data replication and consistency.
+
+|7472|TCP/UDP |This is the prometheus metrics service port.
+
+|7946|TCP/UDP |This port is used for docker's container network discovery.
+
+|9083|TCP |This port is an internally used service port for VASA Provider service.
+
+|1162 |UDP | This is the SNMP trap packets port.
+
+|6443|TCP |Source: RKE2 agents nodes. Destination: REK2 server nodes. Description: Kubernetes API
+
+|9345|TCP |Source: RKE2 agents nodes. Destination: REK2 server nodes. Description: REK2 supervisor API
+
+|8472|TCP+UDP |All nodes need to be able to reach other nodes over UDP port 8472 when flannel VXLAN is used. Source: all RKE2 nodes. Destination: all REK2 nodes. Description: Canal CNI with VXLAN
+
+|10250|TCP |Source: all RKE2 nodes. Destination: all REK2 nodes. Description: Kubelet metrics
+
+|30000-32767|TCP |Source: all RKE2 nodes. Destination: all REK2 nodes. Description: NodePort port range
+
+|123|TCP |Ntpd uses this port to perform validation of the NTP server.
+
+|137-139 |TCP/UDP |SMB/Windows sharing packets.
+
+|6789 |TCP |Ceph Monitor (MON)
+
+|3300 |TCP |Ceph Monitor (MON)
+
+|6800-7300 |TCP |Ceph Managers, OSDs, and Filesystem (MDS).
+
+|80 |TCP |Ceph RADOS Gateway (RGW)
+
+|9080 |TCP| VP HTTP/HTTPS connections (only from 127.0.0.0/8 for IPv4 or ::1/128 for IPv6).
+
+|===
+
+
+== Configuration limits to deploy ONTAP tools for VMware vSphere
+
+You can use the following table as a guide to configure ONTAP tools for VMware vSphere.
+|===
+
+|*Deployment* | *Type* | *Number of vVols* |*Number of hosts*
+
+|Non-HA |Small (S) |~12K| 32
+|Non-HA |Medium (M) |~24K| 64
+|High-Availability |Small (S) |~24K| 64
+|High-Availability |Medium (M) |~50k| 128
+|High-Availability |Large (L) |~100k| 256 [NOTE]
+The number of hosts in the table shows the total number of host from multiple vCenters.
+
+|===
+
+== ONTAP tools for VMware vSphere - Storage Replication Adapter (SRA)
+The following table shows the numbers supported per VMware Live Site Recovery instance using ONTAP tools for VMware vSphere.
+
+|===
+|*vCenter Deployment size* |*Small* |*Medium*
+
+|Total number of virtual machines configured for protection using array-based replication
+|2000
+|5000
+
+|Total number of array-based replication protection groups
+|250
+|250
+
+|Total number of protection groups per recovery plan
+|50
+|50
+
+|Number of replicated datastores
+|255
+|255
+
+|Number of VMs
+|4000
+|7000
+
+|===
+
+The following table shows the number of VMware Live Site Recovery and the corresponding ONTAP tools for VMware vSphere deployment size.
+
+|===
+|*Number of VMware Live Site Recovery instances* |*ONTAP tools deployment Size*
+|Upto 4
+|Small
+|4 to 8	
+|Medium
+|More than 8	
+|Large
+
+|===
+
+//For configuration limit details of ONTAP tools for VMware vSphere - Storage Replication Adapter (SRA), refer to https://kb.netapp.com/data-mgmt/OTV/VSC_Kbs/ONTAP_Tools_for_VMware_vSphere:_Sizing_Guide_for_ONTAP_tools_for_VMware_vSphere[Sizing Guide for ONTAP tools for VMware vSphere].
+
+For more information, refer to https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery/live-site-recovery/9-0/overview/site-recovery-manager-system-requirements/operational-limits-of-site-recovery-manager.html[Operational Limits of VMware Live Site Recovery].
+

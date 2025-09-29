@@ -1,0 +1,33 @@
+---
+permalink: configure/registration-process.html
+sidebar: sidebar
+keywords:
+summary: 'You can register the VASA Provider with a vCenter Server instance using ONTAP tools for VMware vSphere remote plugin interface.'
+---
+= Register the VASA Provider with a vCenter Server instance
+:icons: font
+:imagesdir: ../media/
+
+[.lead]
+You can register the VASA Provider with a vCenter Server instance using ONTAP tools for VMware vSphere. The VASA Provider settings section displays the VASA Provider registration status for the selected vCenter Server. In a multi-vCenter deployment ensure that you have custom CA certificates for each vCenter Server instance. 
+//OTVDOC-271 updates -Jani
+
+.Steps
+
+. Log in to the vSphere client.
+. Select *Shortcuts* > *NetApp ONTAP tools* under the plug-ins section.
+. Select *Settings* > *VASA Provider settings*. The VASA Provider registration status will be displayed as not registered.
+. Select the *Register* button to register the VASA Provider.
+. Enter a name and credentials for the VASA Provider. The username can only contain letters, numbers, and underscores. Password length should be between 8 and 256 characters.
+. Select *Register*.  
+. After a successful registration and page refresh, the registered VASA Provider's status, name, and version is displayed.  After registration, the unregister action is activated.
+
+.What's next
+
+Verify that the onboarded VASA Provider is listed under VASA Provider from the vCenter client:
+
+.Steps
+
+. Navigate to the vCenter Server instance.
+. Log in with the administrator credentials.
+. Select *Storage Providers* > *Configure*. Verify that the onboarded VASA Provider is listed correctly.
