@@ -28,3 +28,10 @@ ONTAP tools for VMware vSphere provides the option to enable the SRA capability 
 . Rescan the adapters to verify that the details are updated on the VMware Live Site Recovery Storage Replication Adapters
 page.
 
+.Related information
+
+https://docs.netapp.com/us-en/netapp-solutions-virtualization/vmware/vmw-nfs-vlsr.html#scenario-overview[Configure disaster recovery for NFS datastores using VMware Site Recovery Manager]
+
+// Github - issues/118
+
+
