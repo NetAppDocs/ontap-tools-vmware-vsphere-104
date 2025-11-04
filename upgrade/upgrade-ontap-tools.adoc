@@ -133,7 +133,7 @@ A new HDD will be created. Dynamic storage provisioner uses this HDD to generate
 image:../media/primaryvm-edit-settings.png[Edit settings]
 . From the vCenter Server, open a console to ONTAP tools.
 . Log in as the maintenance user.
-. Enter *3* to select the System Configuration menu.
+. Enter *2* to select the System Configuration menu.
 . Enter *7* to select the upgrade option.
 . When you upgrade, the following actions are performed automatically:
 .. Certificate upgrade
