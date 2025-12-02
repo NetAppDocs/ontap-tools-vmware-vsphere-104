@@ -170,7 +170,7 @@ After running the patch migration API, all VMs comply with the storage policy.
 
 .What's next
 
-After completing the migration and registering ONTAP tools 10.5 to the vCenter Server, follow these steps:
+After completing the migration and registering ONTAP tools 10.4 to the vCenter Server, follow these steps:
 
 * Wait for *Discovery* to complete, and the system refreshes the certificates automatically on all the hosts.
 * Wait before starting datastore and virtual machine operations. The waiting time depends on the number of hosts, datastores, and virtual machines. If you do not wait, you might see occasional failures.
