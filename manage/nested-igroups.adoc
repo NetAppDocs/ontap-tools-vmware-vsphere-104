@@ -15,7 +15,7 @@ ONTAP tools for VMware vSphere 10.4 simplifies datastore management by automatin
 
 ONTAP tools for VMware vSphere 10.4 interprets igroups in two different contexts:
 
-// new topic for 10.5
+// new topic for 10.4
 .Non-ONTAP tools managed igroups
 
 As a storage administrator, you can create igroups on the ONTAP system as flat or nested structures. The illustration shows a flat igroup created in the ONTAP system.
